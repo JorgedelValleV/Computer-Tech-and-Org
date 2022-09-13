@@ -1,0 +1,33 @@
+; Sample memory initialization file for Single Port Block Memory, 
+; v3.0 or later.
+;
+; This .COE file specifies initialization values for a block 
+; memory of depth=512, and width=32. In this case, values are 
+; specified in hexadecimal format.
+;
+; 40030000, 			mv R3, #0 		Resultado											0x00000000	111111 00000 00011 0000000000000000
+; 48640000,  			mv R4, R3 		Para tener un cero								    0x00000004	010010 00011 00100 0000000000000000
+; 44000000, 			lsw R0, #0															0x00000008	010001 00000 00000 0000000000000000
+; 44010001, 			lsw R1, #1															0x0000000C	010001 00000 00001 0000000000000001
+; 40020001, 			mv R2, #1															0x00000010	010000 00000 00010 0000000000000001
+; 10240003, WHILE:	    beq R1, R4, FIN														0x00000014	000100 00001 00100 0000000000000011
+; 00601820, 			add R3, R3, R0														0x00000018	000000 00011 00000 00011 00000 100000
+; 00220822, 			sub R1, R1, R2														0x0000001C	000000 00001 00010 00001 00000 100010
+; 08000014, 			j WHILE																0x00000020	000010 00000000000000000000010100
+; AC830038, FIN: 		sw R3, 44(R4)  (sw R3, C) 											0x00000024	101011 00100 00011 0000000000111000
+; 08000028, FINAL:	    j FINAL																0x00000028	000010 00000000000000000000101000
+;  			            VALOR C = A*B 				Sin tabla de literales para simplificar	0x0000002C	
+;
+memory_initialization_radix=16;
+memory_initialization_vector=
+40030000,
+FC030000,
+44000000,
+44010001,
+40020001,
+10240003,
+00601820,
+00220822,
+08000014,
+AC830038,
+08000028;
